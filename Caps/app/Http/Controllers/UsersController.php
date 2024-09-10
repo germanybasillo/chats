@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Chat;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -65,10 +66,21 @@ class UsersController extends Controller
     }
     
     public function register() {
-        return view("user.register");
+        // Check if the admin is already logged in
+        if (session()->has('LoggedUserInfo')) {
+            return redirect()->route('user.dashboard')->with('info', 'You are already logged in.');
+        }
+    
+        return view('user.register');
     }
+    
     public function login() {
-        return view("user.login");
+        // Check if the admin is already logged in
+        if (session()->has('LoggedUserInfo')) {
+            return redirect()->route('user.dashboard')->with('info', 'You are already logged in.');
+        }
+    
+        return view('user.login');
     }
     public function chats()
     {

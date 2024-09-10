@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Chat;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -13,11 +14,25 @@ use Illuminate\Support\Facades\Storage;
 class AdminsController extends Controller
 {
     public function register() {
-        return view("admin.register");
+        // Check if the admin is already logged in
+        if (session()->has('LoggedAdminInfo')) {
+            return redirect()->route('admin.dashboard')->with('info', 'You are already logged in.');
+        }
+    
+        return view('admin.register');
     }
+    
     public function login() {
-        return view("admin.login");
-    }public function chats()
+        // Check if the admin is already logged in
+        if (session()->has('LoggedAdminInfo')) {
+            return redirect()->route('admin.dashboard')->with('info', 'You are already logged in.');
+        }
+    
+        return view('admin.login');
+    }
+
+    
+    public function chats()
     {
         $LoggedAdminInfo = Admin::find(session('LoggedAdminInfo'));
         if (!$LoggedAdminInfo) {
@@ -212,7 +227,7 @@ class AdminsController extends Controller
     if (Admin::count() >= 1) {
         return redirect()->back()->with('fail', 'Only one admin account is allowed.');
     }
-    
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins',
