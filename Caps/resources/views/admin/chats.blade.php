@@ -640,7 +640,36 @@
 });
 
 </script>
+<script>
+    // Function to save chat data to localStorage
+function saveChatData() {
+    const chatImg = document.getElementById('chat_img').src;
+    const chatName = document.getElementById('chat_name').innerText;
+    const chatMessages = document.getElementById('chatMessageContainer').innerHTML;
 
+    localStorage.setItem('chat_img', chatImg);
+    localStorage.setItem('chat_name', chatName);
+    localStorage.setItem('chat_messages', chatMessages);
+}
+
+// Function to load chat data from localStorage
+function loadChatData() {
+    const chatImg = localStorage.getItem('chat_img');
+    const chatName = localStorage.getItem('chat_name');
+    const chatMessages = localStorage.getItem('chat_messages');
+
+    if (chatImg) document.getElementById('chat_img').src = chatImg;
+    if (chatName) document.getElementById('chat_name').innerText = chatName;
+    if (chatMessages) document.getElementById('chatMessageContainer').innerHTML = chatMessages;
+}
+
+// Load chat data when the page is loaded
+window.onload = loadChatData;
+
+// Save chat data before unloading the page
+window.onbeforeunload = saveChatData;
+
+</script>
 
 </body>
 
