@@ -53,9 +53,11 @@ class AdminsController extends Controller
         })->unique('user_id')->values();
     
         // Pass the logged-in admin's information and chats to the view
+        $users = User::all(); 
         return view('admin.chats', [
             'LoggedAdminInfo' => $LoggedAdminInfo,
-            'chats' => $allChats
+            'chats' => $allChats,
+            'users' => $users
         ]);
     }
     
@@ -205,6 +207,12 @@ class AdminsController extends Controller
     }
     public function save(Request $request)
     {
+
+         // Check if there is already an admin
+    if (Admin::count() >= 1) {
+        return redirect()->back()->with('fail', 'Only one admin account is allowed.');
+    }
+    
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins',

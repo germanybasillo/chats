@@ -23,15 +23,6 @@ Route::put('/user/updateProfile', [UsersController::class, 'updateProfile'])->na
 Route::get('/user/dashboard', [UsersController::class, 'dashboard'])->name('user.dashboard');
 
 
-
-
-
-
-
-
-
-
-
 Route::post('/admin/save', [AdminsController::class, 'save'])->name('admin.save');
 Route::post('/admin/check', [AdminsController::class, 'check'])->name('admin.check');
 Route::get('/admin/logout', [AdminsController::class, 'logout'])->name('admin.logout');
@@ -45,11 +36,7 @@ Route::get('/admin/dashboard', [AdminsController::class, 'dashboard'])->name('ad
 Route::put('/admin/updateProfile', [AdminsController::class, 'updateProfile'])->name('admin.updateProfile');
 
 
-
-
 Route::get('/admin/fetch-messages', [ChatsController::class, 'fetchMessages'])->name('admin.fetchMessages');
 Route::post('/admin/send-message', [ChatsController::class, 'sendMessage'])->name('admin.sendMessage');
-
-
 Route::get('/fetch-messages', [ChatsController::class, 'fetchMessagesFromUserToAdmin'])->name('fetch.messagesFromSellerToAdmin');
 Route::post('/send-message', [ChatsController::class, 'sendMessageFromUserToAdmin'])->name('send.Messageofsellertoadmin');

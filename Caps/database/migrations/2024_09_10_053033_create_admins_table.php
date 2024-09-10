@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB; // Import DB facade
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->id(); // id column
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -23,6 +24,8 @@ return new class extends Migration
             $table->timestamps(); // created_at and updated_at
             $table->boolean('status')->default(true); // active status
         });
+
+        DB::statement('ALTER TABLE admins AUTO_INCREMENT = 30;');
     }
 
     /**
