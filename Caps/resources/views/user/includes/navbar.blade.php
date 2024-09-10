@@ -95,8 +95,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var notificationCount = document.getElementById('notificationCount');
 
-        var pusher = new Pusher('b23d71886d55f985f153', {
-            cluster: 'ap2'
+        var pusher = new Pusher('cd99d7b02ac9616efdeb', {
+            cluster: 'ap1'
         });
 
         var loggedUserId = '{{ $LoggedUserInfo['id'] }}';
